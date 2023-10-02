@@ -8,8 +8,8 @@ public class BulletPlayer : Bullet
 
     private void Start()
     {
-        _shootPoint = FindObjectOfType<ShootPoint>();
-        transform.rotation = _shootPoint.transform.rotation;
+        ShootPoint = FindObjectOfType<ShootPoint>();
+        transform.rotation = ShootPoint.transform.rotation;
     }
 
     private void Update()

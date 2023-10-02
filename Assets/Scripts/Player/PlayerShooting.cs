@@ -10,7 +10,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            _weapon.Shoot(/*true*/);
+            _weapon.Shoot();
         }
     }
 }

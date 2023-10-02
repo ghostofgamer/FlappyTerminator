@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
-    protected ShootPoint _shootPoint;
+    protected ShootPoint ShootPoint;
 
     protected abstract void Move();
 }

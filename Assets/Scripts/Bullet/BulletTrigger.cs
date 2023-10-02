@@ -8,7 +8,6 @@ public class BulletTrigger : MonoBehaviour
     {
         if (collision.TryGetComponent(out Enemy enemy))
         {
-            Debug.Log("попался");
             enemy.Die();
         }
     }
