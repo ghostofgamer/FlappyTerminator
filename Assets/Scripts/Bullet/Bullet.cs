@@ -4,11 +4,10 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
-    protected ShootPoint ShootPoint;
-
-    public void Init(ShootPoint shootPoint)
+    public void Init(Transform shootPoint)
     {
-        ShootPoint = shootPoint;
+        transform.position = shootPoint.transform.position;
+        transform.rotation = shootPoint.transform.rotation;
     }
 
     protected abstract void Move();

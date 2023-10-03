@@ -15,8 +15,8 @@ public class EnemyShoot : MonoBehaviour
 
         if (_currentTime >= _timeToNextShoot)
         {
-            _weapon.Shoot();
             _currentTime = 0f;
+            _weapon.Shoot();
         }
     }
 }

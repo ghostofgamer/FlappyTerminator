@@ -2,82 +2,107 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class ObjectPool : MonoBehaviour
+public class ObjectPool<T> where T : MonoBehaviour
 {
-    [SerializeField] private GameObject _container;
-
-    private int _capacity = 30;
+    private Transform _container;
     private Camera _camera;
+    private T _prefab;
+    private T[] _prefabs;
 
-    private List<GameObject> _pool = new List<GameObject>();
+    private List<T> _poolGeneric;
 
-    protected void Initialization(GameObject[] prefabs)
+    public bool AutoExpand { get; private set; }
+
+    public ObjectPool(T prefab, int count, Transform container)
+    {
+        _prefab = prefab;
+        _container = container;
+        Initialization(count, prefab);
+    }
+
+    public ObjectPool(T[] prefab, int count, Transform container)
+    {
+        _prefabs = prefab;
+        _container = container;
+        Initialization(count, prefab);
+    }
+
+    private void Initialization(int count, T prefabs)
     {
         _camera = Camera.main;
+        _poolGeneric = new List<T>();
 
-        for (int i = 0; i < _capacity; i++)
+        for (int i = 0; i < count; i++)
+        {
+            var spawned = Object.Instantiate(prefabs, _container.transform);
+            spawned.gameObject.SetActive(false);
+            _poolGeneric.Add(spawned);
+        }
+    }
+    private void Initialization(int count, T[] prefabs)
+    {
+        _camera = Camera.main;
+        _poolGeneric = new List<T>();
+
+        for (int i = 0; i < count; i++)
         {
             int randomIndex = Random.Range(0, prefabs.Length);
-            GameObject spawned = Instantiate(prefabs[randomIndex], _container.transform);
-            spawned.SetActive(false);
-            _pool.Add(spawned);
+            var spawned = Object.Instantiate<T>(prefabs[randomIndex], _container.transform);
+            spawned.gameObject.SetActive(false);
+            _poolGeneric.Add(spawned);
         }
     }
 
-    protected void Initialization(GameObject prefabs)
+    public bool TryGetObject(out T spawned, T prefabs)
     {
-        _camera = Camera.main;
-
-        for (int i = 0; i < _capacity; i++)
-        {
-            GameObject spawned = Instantiate(prefabs, _container.transform);
-            spawned.SetActive(false);
-            _pool.Add(spawned);
-        }
-    }
-
-    protected bool TryGetEnemy(out GameObject enemy)
-    {
-        var filter = _pool.Where(p => p.activeSelf == false);
+        var filter = _poolGeneric.Where(p => p.gameObject.activeSelf == false);
         var index = Random.Range(0, filter.Count());
-        enemy = filter.ElementAt(index);
-        return enemy != null;
+
+        if (filter.Count() == 0 && AutoExpand)
+        {
+            spawned = CreateObject(prefabs);
+            return spawned != null;
+        }
+
+        spawned = filter.ElementAt(index);
+        spawned.gameObject.SetActive(true);
+        return spawned != null;
     }
 
-    public bool TryGetBullet(out GameObject bullet, bool playerBullet)
+    private T CreateObject(T prefabs)
     {
-        if (playerBullet)
-        {
-            var filter = _pool.Where(p => p.activeSelf == false && p.GetComponent<BulletPlayer>());
-            bullet = filter.FirstOrDefault();
-            return bullet != null;
-        }
-        else
-        {
-            var filter = _pool.Where(p => p.activeSelf == false && p.GetComponent<BulletEnemy>());
-            bullet = filter.FirstOrDefault();
-            return bullet != null;
-        }
+        var spawned = Object.Instantiate<T>(prefabs, _container.transform);
+        spawned.gameObject.SetActive(true);
+        _poolGeneric.Add(spawned);
+        return spawned;
     }
 
-    protected void DisableObjectAbroadScreen()
+    public void GetAutoExpand(bool flag)
     {
-        foreach (var item in _pool)
+        AutoExpand = flag;
+    }
+
+    public void DisableObjectAbroadScreen()
+    {
+        foreach (var item in _poolGeneric)
         {
-            if (item.activeSelf == true)
+            if (item.gameObject.activeSelf == true)
             {
                 Vector3 point = _camera.WorldToViewportPoint(item.transform.position);
 
                 if (point.x < 0)
-                    item.SetActive(false);
+                {
+                    item.gameObject.SetActive(false);
+                }
             }
         }
     }
 
     public void ResetPool()
     {
-        foreach (var item in _pool)
-            item.SetActive(false);
+        foreach (var item in _poolGeneric)
+            item.gameObject.SetActive(false);
     }
 }
