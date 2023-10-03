@@ -21,4 +21,9 @@ public class BulletPlayer : Bullet
     {
         transform.Translate(transform.right * _speed * Time.deltaTime);
     }
+
+    public void Init(ShootPoint shootPoint)
+    {
+        ShootPoint = shootPoint;
+    }
 }
