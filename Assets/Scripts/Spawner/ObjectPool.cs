@@ -22,11 +22,11 @@ public class ObjectPool<T> where T : MonoBehaviour
         Initialization(count, prefab);
     }
 
-    public ObjectPool(T[] prefab, int count, Transform container)
+    public ObjectPool(T[] prefabs, int count, Transform container)
     {
-        _prefabs = prefab;
+        _prefabs = prefabs;
         _container = container;
-        Initialization(count, prefab);
+        Initialization(count, prefabs);
     }
 
     private void Initialization(int count, T prefabs)

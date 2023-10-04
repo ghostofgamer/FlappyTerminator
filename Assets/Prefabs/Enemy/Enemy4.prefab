@@ -76,7 +76,6 @@ GameObject:
   - component: {fileID: 682890023442105456}
   - component: {fileID: 682890023442105457}
   - component: {fileID: 682890023442105470}
-  - component: {fileID: 1819016369789071634}
   m_Layer: 0
   m_Name: Enemy4
   m_TagString: Untagged
@@ -205,19 +204,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.1617527, y: 0.6874426}
   m_Size: {x: 4.7835793, y: 8.77257}
   m_Direction: 0
---- !u!114 &1819016369789071634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682890023442105468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f9604aa6a1f6d4890d7d593c468e53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _container: {fileID: 682890022817788156}
 --- !u!1 &682890024499542831
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +305,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootPosition: {fileID: 682890022830323711}
   _bullet: {fileID: 5046004038360926109, guid: be9bfc0950367c340b48a3a1692c7401, type: 3}
-  _container: {fileID: 682890022817788156}
   _autoExpand: 1
   _countBullets: 15

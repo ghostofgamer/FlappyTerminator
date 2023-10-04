@@ -6,15 +6,17 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] private Transform _shootPosition;
     [SerializeField] private Bullet _bullet;
-    [SerializeField] private Transform _container;
     [SerializeField] private bool _autoExpand;
     [SerializeField] private int _countBullets;
+
+    private BulletContainer _container;
 
     private ObjectPool<Bullet> _bullets;
 
     private void Start()
     {
-        _bullets = new ObjectPool<Bullet>(_bullet, _countBullets, _container);
+        _container = FindObjectOfType<BulletContainer>();
+        _bullets = new ObjectPool<Bullet>(_bullet, _countBullets, _container.transform);
         _bullets.GetAutoExpand(_autoExpand);
     }
 

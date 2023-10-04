@@ -77,7 +77,6 @@ GameObject:
   - component: {fileID: 4981036821395228627}
   - component: {fileID: 2208190562103050120}
   - component: {fileID: 2807411330899144553}
-  - component: {fileID: 3930370119956013281}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -192,7 +191,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootPosition: {fileID: 6673921878913739083}
   _bullet: {fileID: 3163567270628031987, guid: 527cd1a57d8b56045b6cc0c80ac034b3, type: 3}
-  _container: {fileID: 1209951182844111187}
   _autoExpand: 1
   _countBullets: 15
 --- !u!61 &2208190562103050120
@@ -234,16 +232,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weapon: {fileID: 4981036821395228627}
---- !u!114 &3930370119956013281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6203183672967737014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f9604aa6a1f6d4890d7d593c468e53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _container: {fileID: 1209951182844111187}

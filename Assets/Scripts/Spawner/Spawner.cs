@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float _minPositionY;
     [SerializeField] private int _count;
     [SerializeField] private bool _autoExpand;
+    [SerializeField] private Player _player;
 
     private float _timeToNextSpawn = 3f;
     private float _elapsedTime = 0f;
@@ -37,9 +38,21 @@ public class Spawner : MonoBehaviour
                 _elapsedTime = 0f;
                 float positionY = Random.Range(_minPositionY, _maxPositionY);
                 Vector3 spawnPosition = new Vector3(transform.position.x, positionY, transform.position.z);
+                enemy.KilledChanged += OnEnemyDiyng;
                 enemy.transform.position = spawnPosition;
                 _pool.DisableObjectAbroadScreen();
             }
         }
+    }
+
+    private void OnEnemyDiyng(Enemy enemy)
+    {
+        _player.AddKilledCount();
+        enemy.KilledChanged -= OnEnemyDiyng;
+    }
+
+    public void ResetGame()
+    {
+        _pool.ResetPool();
     }
 }

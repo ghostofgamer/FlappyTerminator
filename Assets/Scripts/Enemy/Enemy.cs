@@ -5,16 +5,11 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
-    private EnemyContainer _container;
-
-    private void Start()
-    {
-        _container = GetComponent<EnemyContainer>();
-    }
+    public event UnityAction<Enemy> KilledChanged;
 
     public void Die()
     {
-        _container.ResetBullet();
         gameObject.SetActive(false);
+        KilledChanged?.Invoke(this);
     }
 }
