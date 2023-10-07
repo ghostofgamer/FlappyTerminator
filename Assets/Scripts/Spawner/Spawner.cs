@@ -38,7 +38,7 @@ public class Spawner : MonoBehaviour
                 _elapsedTime = 0f;
                 float positionY = Random.Range(_minPositionY, _maxPositionY);
                 Vector3 spawnPosition = new Vector3(transform.position.x, positionY, transform.position.z);
-                enemy.KilledChanged += OnEnemyDiyng;
+                enemy.Dying += OnEnemyDiyng;
                 enemy.transform.position = spawnPosition;
                 _pool.DisableObjectAbroadScreen();
             }
@@ -48,11 +48,11 @@ public class Spawner : MonoBehaviour
     private void OnEnemyDiyng(Enemy enemy)
     {
         _player.AddKilledCount();
-        enemy.KilledChanged -= OnEnemyDiyng;
+        enemy.Dying -= OnEnemyDiyng;
     }
 
     public void ResetGame()
     {
-        _pool.ResetPool();
+        _pool.Reset();
     }
 }

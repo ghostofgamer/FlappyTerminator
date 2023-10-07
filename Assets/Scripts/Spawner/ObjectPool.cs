@@ -19,17 +19,17 @@ public class ObjectPool<T> where T : MonoBehaviour
     {
         _prefab = prefab;
         _container = container;
-        Initialization(count, prefab);
+        GetInitialization(count, prefab);
     }
 
     public ObjectPool(T[] prefabs, int count, Transform container)
     {
         _prefabs = prefabs;
         _container = container;
-        Initialization(count, prefabs);
+        GetInitialization(count, prefabs);
     }
 
-    private void Initialization(int count, T prefabs)
+    private void GetInitialization(int count, T prefabs)
     {
         _camera = Camera.main;
         _poolGeneric = new List<T>();
@@ -41,7 +41,7 @@ public class ObjectPool<T> where T : MonoBehaviour
             _poolGeneric.Add(spawned);
         }
     }
-    private void Initialization(int count, T[] prefabs)
+    private void GetInitialization(int count, T[] prefabs)
     {
         _camera = Camera.main;
         _poolGeneric = new List<T>();
@@ -100,7 +100,7 @@ public class ObjectPool<T> where T : MonoBehaviour
         }
     }
 
-    public void ResetPool()
+    public void Reset()
     {
         foreach (var item in _poolGeneric)
             item.gameObject.SetActive(false);

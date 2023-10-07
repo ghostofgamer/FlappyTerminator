@@ -30,6 +30,6 @@ public class Weapon : MonoBehaviour
 
     public void ResetBullet()
     {
-        _bullets.ResetPool();
+        _bullets.Reset();
     }
 }

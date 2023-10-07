@@ -6,17 +6,25 @@ public class EnemyShoot : MonoBehaviour
 {
     [SerializeField] private Weapon _weapon;
 
-    private float _currentTime = 0f;
+    private Coroutine _coroutine;
 
     private readonly float _timeToNextShoot = 1f;
 
-    private void Update()
+    private void Start()
     {
-        _currentTime += Time.deltaTime;
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
 
-        if (_currentTime >= _timeToNextShoot)
+        _coroutine = StartCoroutine(DoShoot());
+    }
+
+    private IEnumerator DoShoot()
+    {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(_timeToNextShoot);
+
+        while (true)
         {
-            _currentTime = 0f;
+            yield return waitForSeconds;
             _weapon.Shoot();
         }
     }

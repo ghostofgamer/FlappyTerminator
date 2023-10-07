@@ -5,11 +5,11 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
-    public event UnityAction<Enemy> KilledChanged;
+    public event UnityAction<Enemy> Dying;
 
     public void Die()
     {
         gameObject.SetActive(false);
-        KilledChanged?.Invoke(this);
+        Dying?.Invoke(this);
     }
 }
