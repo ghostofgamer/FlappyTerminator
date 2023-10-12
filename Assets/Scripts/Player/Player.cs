@@ -6,6 +6,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMover))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Weapon _weapon;
+
     private PlayerMover _playerMover;
 
     public int EnemiesKilledCount { get; private set; }
@@ -25,6 +27,7 @@ public class Player : MonoBehaviour
         EnemiesKilledCount = 0;
         KilledCountChanged?.Invoke(EnemiesKilledCount);
         _playerMover.ResetPosition();
+        _weapon.ResetBullet();
     }
 
     public void AddKilledCount()

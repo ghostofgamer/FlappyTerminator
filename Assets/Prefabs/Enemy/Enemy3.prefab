@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7789921864008283222}
   - component: {fileID: 3850497054524935649}
-  - component: {fileID: 2408710740732609623}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -87,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2408710740732609623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4459299071974298914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad113ba508cc7774fb6b07db3ea6b375, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shootPosition: {fileID: 2116860071368924483}
-  _bullet: {fileID: 5046004038360926109, guid: be9bfc0950367c340b48a3a1692c7401, type: 3}
-  _autoExpand: 1
-  _countBullets: 16
 --- !u!1 &4948629538930202495
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,6 +131,7 @@ GameObject:
   - component: {fileID: 4504067768369274212}
   - component: {fileID: 8986777418187859075}
   - component: {fileID: 1543254821786703137}
+  - component: {fileID: 3864222377119292459}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Untagged
@@ -259,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12c61f8937044be4cb7f028ad03279e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 2408710740732609623}
+  _weapon: {fileID: 3864222377119292459}
 --- !u!70 &1543254821786703137
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -276,6 +260,22 @@ CapsuleCollider2D:
   m_Offset: {x: -0.6672352, y: -0.5256835}
   m_Size: {x: 11.421616, y: 5.192097}
   m_Direction: 1
+--- !u!114 &3864222377119292459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6017471258192223059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad113ba508cc7774fb6b07db3ea6b375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shootPosition: {fileID: 2116860071368924483}
+  _bullet: {fileID: 5046004038360926109, guid: be9bfc0950367c340b48a3a1692c7401, type: 3}
+  _autoExpand: 1
+  _countBullets: 15
 --- !u!1 &7789877787898832500
 GameObject:
   m_ObjectHideFlags: 0

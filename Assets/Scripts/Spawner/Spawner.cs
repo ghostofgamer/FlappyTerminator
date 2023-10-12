@@ -7,7 +7,8 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private Enemy[] _enemyPrefabs;
     [SerializeField] private Enemy _prefab;
-    [SerializeField] private Transform _container;
+    [SerializeField] private Transform _containerEnemy;
+    [SerializeField] private Transform _containerBullet;
     [SerializeField] private float _maxPositionY;
     [SerializeField] private float _minPositionY;
     [SerializeField] private int _count;
@@ -21,7 +22,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        _pool = new ObjectPool<Enemy>(_enemyPrefabs, _count, _container);
+        _pool = new ObjectPool<Enemy>(_enemyPrefabs, _count, _containerEnemy);
         _pool.GetAutoExpand(_autoExpand);
     }
 
@@ -39,20 +40,22 @@ public class Spawner : MonoBehaviour
                 float positionY = Random.Range(_minPositionY, _maxPositionY);
                 Vector3 spawnPosition = new Vector3(transform.position.x, positionY, transform.position.z);
                 enemy.Dying += OnEnemyDiyng;
+                enemy.GetComponent<Weapon>().Init(_containerBullet);
                 enemy.transform.position = spawnPosition;
                 _pool.DisableObjectAbroadScreen();
             }
         }
     }
 
+    public void ResetGame()
+    {
+        _pool.Reset();
+    }
+
     private void OnEnemyDiyng(Enemy enemy)
     {
         _player.AddKilledCount();
         enemy.Dying -= OnEnemyDiyng;
-    }
-
-    public void ResetGame()
-    {
-        _pool.Reset();
+        enemy.GetComponent<Weapon>().ResetBullet();
     }
 }

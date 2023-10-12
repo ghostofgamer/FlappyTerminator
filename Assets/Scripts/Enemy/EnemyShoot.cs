@@ -10,12 +10,15 @@ public class EnemyShoot : MonoBehaviour
 
     private readonly float _timeToNextShoot = 1f;
 
-    private void Start()
+    private void OnEnable()
+    {
+        _coroutine = StartCoroutine(DoShoot());
+    }
+
+    private void OnDisable()
     {
         if (_coroutine != null)
             StopCoroutine(_coroutine);
-
-        _coroutine = StartCoroutine(DoShoot());
     }
 
     private IEnumerator DoShoot()

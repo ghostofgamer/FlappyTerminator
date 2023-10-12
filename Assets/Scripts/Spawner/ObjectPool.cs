@@ -29,32 +29,6 @@ public class ObjectPool<T> where T : MonoBehaviour
         GetInitialization(count, prefabs);
     }
 
-    private void GetInitialization(int count, T prefabs)
-    {
-        _camera = Camera.main;
-        _poolGeneric = new List<T>();
-
-        for (int i = 0; i < count; i++)
-        {
-            var spawned = Object.Instantiate(prefabs, _container.transform);
-            spawned.gameObject.SetActive(false);
-            _poolGeneric.Add(spawned);
-        }
-    }
-    private void GetInitialization(int count, T[] prefabs)
-    {
-        _camera = Camera.main;
-        _poolGeneric = new List<T>();
-
-        for (int i = 0; i < count; i++)
-        {
-            int randomIndex = Random.Range(0, prefabs.Length);
-            var spawned = Object.Instantiate<T>(prefabs[randomIndex], _container.transform);
-            spawned.gameObject.SetActive(false);
-            _poolGeneric.Add(spawned);
-        }
-    }
-
     public bool TryGetObject(out T spawned, T prefabs)
     {
         var filter = _poolGeneric.Where(p => p.gameObject.activeSelf == false);
@@ -69,14 +43,6 @@ public class ObjectPool<T> where T : MonoBehaviour
         spawned = filter.ElementAt(index);
         spawned.gameObject.SetActive(true);
         return spawned != null;
-    }
-
-    private T CreateObject(T prefabs)
-    {
-        var spawned = Object.Instantiate<T>(prefabs, _container.transform);
-        spawned.gameObject.SetActive(true);
-        _poolGeneric.Add(spawned);
-        return spawned;
     }
 
     public void GetAutoExpand(bool flag)
@@ -104,5 +70,40 @@ public class ObjectPool<T> where T : MonoBehaviour
     {
         foreach (var item in _poolGeneric)
             item.gameObject.SetActive(false);
+    }
+
+    private void GetInitialization(int count, T prefabs)
+    {
+        _camera = Camera.main;
+        _poolGeneric = new List<T>();
+
+        for (int i = 0; i < count; i++)
+        {
+            var spawned = Object.Instantiate(prefabs, _container.transform);
+            spawned.gameObject.SetActive(false);
+            _poolGeneric.Add(spawned);
+        }
+    }
+
+    private void GetInitialization(int count, T[] prefabs)
+    {
+        _camera = Camera.main;
+        _poolGeneric = new List<T>();
+
+        for (int i = 0; i < count; i++)
+        {
+            int randomIndex = Random.Range(0, prefabs.Length);
+            var spawned = Object.Instantiate<T>(prefabs[randomIndex], _container.transform);
+            spawned.gameObject.SetActive(false);
+            _poolGeneric.Add(spawned);
+        }
+    }
+
+    private T CreateObject(T prefabs)
+    {
+        var spawned = Object.Instantiate<T>(prefabs, _container.transform);
+        spawned.gameObject.SetActive(true);
+        _poolGeneric.Add(spawned);
+        return spawned;
     }
 }
